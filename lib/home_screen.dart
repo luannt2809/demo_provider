@@ -1,5 +1,6 @@
 import 'package:demo_provider/counter_provider.dart';
 import 'package:demo_provider/second_screen.dart';
+import 'package:demo_provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +12,15 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Demo Provider"),
+        actions: [
+          Switch(
+            value: context.watch<SettingsProvider>().isDark,
+            onChanged: (value) {
+              Provider.of<SettingsProvider>(context, listen: false)
+                  .setBrightness(value);
+            },
+          ),
+        ],
       ),
       body: Center(
         child: Column(
@@ -24,8 +34,8 @@ class HomeScreen extends StatelessWidget {
             Consumer<CounterProvider>(
               builder: (context, counterProvider, child) => Text(
                 '${counterProvider.counter}',
-                style: const TextStyle(
-                    fontSize: 48, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 48, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(
@@ -46,8 +56,7 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const SecondScreen()),
+                  MaterialPageRoute(builder: (context) => const SecondScreen()),
                 );
               },
               child: const Text("Next Screen"),

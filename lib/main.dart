@@ -1,16 +1,11 @@
-import 'package:demo_provider/counter_provider.dart';
-import 'package:demo_provider/home_screen.dart';
-import 'package:demo_provider/second_screen.dart';
+import 'package:demo_provider/change_color_provider.dart';
+import 'package:demo_provider/home_change_colors.dart';
+import 'package:demo_provider/settings_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(
-    ChangeNotifierProvider(
-      child: const MyApp(),
-      create: (context) => CounterProvider(),
-    ),
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -18,13 +13,21 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return ChangeNotifierProvider<ChangeColorProvider>(
+      create: (context) => ChangeColorProvider(),
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+            // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+            // useMaterial3: true,
+            // primarySwatch: Colors.blue,
+            // brightness: context.watch<SettingsProvider>().isDark
+            //     ? Brightness.dark
+            //     : Brightness.light),
+        ),
+        // home: const HomeScreen(),
+        home: const HomeChangeColor(),
       ),
-      home: const HomeScreen(),
     );
   }
 }
